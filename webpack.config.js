@@ -11,10 +11,10 @@ module.exports = {
     //打包以后的文件名字
     filename: "bundle.js",
     //
-    environment:{
+    environment: {
       //是否启用箭头函数
-        arrowFunction: false
-    }
+      arrowFunction: false,
+    },
   },
   //指定文本pack打包时要使用的模块
   module: {
@@ -36,15 +36,15 @@ module.exports = {
                   "@babel/preset-env",
                   //配置信息
                   {
-                      //要兼容的目标浏览器
+                    //要兼容的目标浏览器
                     targets: {
                       chrome: "48",
-                      ie:'6'
+                      ie: "6",
                     },
                     //指定corejs的版本
-                    "corejs": "3",
+                    corejs: "3",
                     //使用corejs的方式”usage“表示按需加载
-                    "useBuiltIns":"usage"
+                    useBuiltIns: "usage",
                   },
                 ],
               ],
@@ -53,6 +53,30 @@ module.exports = {
           "ts-loader",
         ],
         exclude: /node-modules/,
+      },
+      //less文件处理
+      {
+        test: /\.less$/,
+        use: [
+          "style-loader",
+          "css-loader",
+          {
+            loader: "postcss-loader",
+            options: {
+              postcssOptions: {
+                plugins: [
+                [
+                  "postcss-preset-env",
+                  {
+                    borwsers: "last 2 versions",
+                  },
+                ]
+                ],
+              },
+            },
+          },
+          "less-loader",
+        ],
       },
     ],
   },
